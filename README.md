@@ -19,3 +19,21 @@ uvicorn main:app --reload
 # 退出
 ctrl+C
 ```
+
+- 测试
+	- 测试案例
+	```python
+	from fastapi.testclient import TestClient
+	from main import app
+	
+	client = TestClient(app)
+	def test_base():
+		response = client.get("/base")
+		assert response.status_code == 200
+	```
+	- 运行测试代码
+	```shell
+	pip install pytest
+	pytest
+	```
+
