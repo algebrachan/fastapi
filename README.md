@@ -1,6 +1,6 @@
 # fastapi
 
-## 预处理
+## 1.预处理
 - [安装虚拟环境](https://gitee.com/mathchan/zvision-work/blob/master/2020-11/python.md)
 - install 模块使用类似于js中 package.json这种类型的配置文件
 
@@ -36,4 +36,30 @@ ctrl+C
 	pip install pytest
 	pytest
 	```
+
+- 打印日志
+
+## 2.目录结构
+
+```txt
+│  config.py
+│  main.py			# 主程序入口
+│  README.md		# 项目说明文档
+│  requirements.txt	# 依赖文件
+│  test_main.py		# 测试文件入口              
+├─common			
+│  │  entity.py		# RESTful接口统一回复类
+│  
+├─models			# 持久层，设置数据库中的类
+│  │  models.py		
+│          
+├─routers			# controler层，路由
+│  │  base_router.py
+│          
+├─services			# service层 处理业务逻辑，数据库的crud
+│  │  base_service.py
+│          
+├─utils				# 公用工具层，用来封装公用的函数或公用模块
+│      
+```
 
