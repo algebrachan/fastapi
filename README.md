@@ -46,7 +46,8 @@ ctrl+C
 │  main.py			# 主程序入口
 │  README.md		# 项目说明文档
 │  requirements.txt	# 依赖文件
-│  test_main.py		# 测试文件入口              
+│  test_main.py		# 测试文件入口     
+|  delcache.py		# 缓存清理         
 ├─common			
 │  │  entity.py		# RESTful接口统一回复类
 │  
