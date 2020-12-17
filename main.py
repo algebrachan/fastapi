@@ -2,9 +2,10 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 from routers.base_router import base_router
+from routers.dv_router import dv_router
 import config
 import utils.log
-app = FastAPI()
+app = FastAPI(title='智慧大屏api',description='系统后端restful api')
 
 # 跨域 CORS问题解决
 app.add_middleware(
@@ -15,6 +16,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 app.include_router(base_router)
+# 可以加前缀 prefix
+app.include_router(dv_router,prefix="/api")
 
 @app.get("/")
 def read_root():
