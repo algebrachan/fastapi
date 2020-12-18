@@ -1,6 +1,6 @@
-# api开头的类为 响应类
+# resp开头的类为 响应类
 
-class ApiGetTotalCount:
+class RespGetTotalCount:
     shoulder: dict = {}
     diameter: dict = {}
 

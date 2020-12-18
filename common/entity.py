@@ -34,4 +34,5 @@ class ResponseBase(BaseModel):
     def error(self, err_code: Error):
         self.code = err_code.value
         self.msg = dict_error[err_code.name]
+        self.data = {}
         # error枚举类

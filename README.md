@@ -39,6 +39,16 @@ ctrl+C
 
 - 打印日志
 
+  logging引入
+
+- 清除缓存 
+
+  ```shell
+  py delcache.py
+  ```
+
+  
+
 ## 2.目录结构
 
 ```txt

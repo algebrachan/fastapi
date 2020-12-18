@@ -1,5 +1,5 @@
 import os, shutil
-
+# 清除本地缓存
 def traversal(path):
     for file_name in os.listdir(path):
         abs_path = os.path.join(path, file_name)
