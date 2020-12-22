@@ -16,6 +16,7 @@ pip install -r requirements.txt
 - 运行
 ```shell
 uvicorn main:app --reload
+uvicorn main:app --host '0.0.0.0' --port 8065 --reload
 # 退出
 ctrl+C
 ```
@@ -74,3 +75,7 @@ ctrl+C
 │      
 ```
 
+## 3. 部署
+```shell
+	scp -r fastapi wangchen@10.50.63.63:/home/wangchen
+```
