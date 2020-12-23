@@ -1,6 +1,8 @@
 from sqlalchemy import create_engine  # 建立数据库引擎
 from sqlalchemy.orm import sessionmaker  # 建立回话session
-from models.models import Base
+from models.models import Base, DetectionResult
+import time
+from datetime import datetime, date
 
 db_user = 'root'
 db_pwd = '123456'
@@ -13,11 +15,17 @@ db_connect_string = 'mysql+pymysql://{0}:{1}@{2}:{3}/{4}?charset=utf8'.format(
 engine = create_engine(db_connect_string, echo=True, max_overflow=5)  # 创建引擎
 db_session = sessionmaker(bind=engine)  # 产生会话
 
+
 def init_db():  # 根据类创建数据库表
     print('db init')
-    Base.metadata.create_all(engine)
+    # Base.metadata.create_all(engine)
+    # print(str(datetime.now().date()))
+    # print(int(time.time()))
+    # str -> date
+    # detester = '2017-01-01'
+    # date = datetime.strptime(detester, '%Y-%m-%d')
+    # print(date)
 
-
+# 创建表的时候执行
 if __name__ == '__main__':
-    
     init_db()

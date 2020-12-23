@@ -21,10 +21,10 @@ class CommonCount:
     miss: int   # 漏检数量
 
     def __init__(self, online, brek, fail, miss):
-        self.online = online
-        self.brek = brek
-        self.fail = fail
-        self.miss = miss
+        self.online = online 
+        self.brek = brek 
+        self.fail = fail 
+        self.miss = miss 
 
 
 class CommonListItem:

@@ -10,15 +10,15 @@ if(not os.path.exists(path)):
 # 获取今天的日期
 today_date = str(datetime.date.today())
 # 创建logger记录器
-logging.basicConfig(filename=path + today_date + '.log',level=logging.DEBUG,filemode = 'a',format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logging.basicConfig(filename=path + today_date + '.log',level=logging.WARNING,filemode = 'a',format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger('test') # 用来分类
-logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.WARNING)
 
 # 创建一个控制台处理器，并将日志级别设置为debug
 
 ch = logging.StreamHandler()
 
-ch.setLevel(logging.DEBUG)
+ch.setLevel(logging.WARNING)
 
 # 创建formatter格式化器
 formatter = logging.Formatter(

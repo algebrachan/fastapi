@@ -1,6 +1,5 @@
 # 通用自定义工具模块
-from threading import Timer
-import time
+
 # dict 转对象
 class Dict(dict):
     __setattr__ = dict.__setitem__

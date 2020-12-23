@@ -5,7 +5,7 @@ from routers.base_router import base_router
 from routers.dv_router import dv_router
 import config
 import utils.log
-import request
+import tick
 app = FastAPI(title='智慧大屏api', description='系统后端restful api')
 
 # 跨域 CORS问题解决
@@ -19,6 +19,7 @@ app.add_middleware(
 # app.include_router(base_router)
 # 可以加前缀 prefix
 app.include_router(dv_router, prefix="/api")
+
 
 
 @app.get("/")
