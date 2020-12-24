@@ -33,7 +33,7 @@ class DetectionResult(Base):
     """
     __tablename__ = 'detection_result'
     key = Column(Integer, primary_key=True, autoincrement=True)
-    date = Column(Date, nullable=False, default='0000-00-00')
+    date = Column(Date, nullable=False, default='1970-01-01')
     dev_nums = Column(Integer, nullable=False, default=0)
     broken_nums = Column(Integer, nullable=False, default=0)
     fp_nums = Column(Integer, nullable=False, default=0)

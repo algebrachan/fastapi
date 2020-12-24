@@ -25,6 +25,11 @@ def init_db():  # 根据类创建数据库表
     # detester = '2017-01-01'
     # date = datetime.strptime(detester, '%Y-%m-%d')
     # print(date)
+def test():
+    session = db_session()
+    dr = DetectionResult()
+    session.add(dr)
+    session.commit()
 
 # 创建表的时候执行
 if __name__ == '__main__':

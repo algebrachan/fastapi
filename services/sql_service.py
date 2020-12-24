@@ -1,8 +1,9 @@
 from config import db_session
-from sqlalchemy import and_
+from sqlalchemy import and_, desc
 from models.models import DetectionResult
 from utils.common import dict2obj
 from utils.log import logger
+from datetime import datetime, date, timedelta
 import requests
 
 
@@ -34,3 +35,41 @@ def add_diameter_detection_result():
         logger.error(e)
         pass
     session.close()  # 关闭session
+
+
+def get_one_detection_result(date: str, type: int):
+    """
+    param:date 查询日期
+    param:type 查询类型 1 shoulder 2 diameter
+    """
+    session = db_session()
+    data = None
+    try:
+        data = session.query(DetectionResult).filter(
+            and_(DetectionResult.date == date, DetectionResult.type == type)).first()
+        pass
+    except Exception as e:
+        logger.error(e)
+        pass
+    session.close()
+    return data
+
+
+def get_history_broken_nums(type: int, days: int):
+    """
+    param:type 查询类型 1 shoulder 2 diameter
+    param:days 多少天的时间
+    """
+    session = db_session()
+    data = None
+    try:
+        # 10天前的数据
+        dt_ago = (datetime.now()-timedelta(days=days)).date()
+        data = session.query(DetectionResult).filter(
+            and_(DetectionResult.type == type, DetectionResult.date >= dt_ago)).order_by(desc(DetectionResult.date)).all()
+        pass
+    except Exception as e:
+        logger.error(e)
+        pass
+    session.close()
+    return data

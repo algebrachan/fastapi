@@ -5,39 +5,27 @@ from sqlalchemy import and_
 from models.models import DetectionResult
 from utils.log import logger
 from datetime import datetime, date
+from services.sql_service import get_one_detection_result, get_history_broken_nums
 import random
 
 
 def total_count(res: ResponseBase):
-    session = db_session()
+
     data = RespGetTotalCount()
     try:
         # 获取当前的时间字符串
         datenow = datetime.now().date()
-        db_shoulder = session.query(DetectionResult).filter(
-            and_(DetectionResult.date == datenow, DetectionResult.type == 1)).first()
-        db_diameter = session.query(DetectionResult).filter(
-            and_(DetectionResult.date == datenow, DetectionResult.type == 2)).first()
-        if db_shoulder == None:
-            data.shoulder = CommonCount(0, 0, 0, 0)
-        else:
-            data.shoulder = CommonCount(
-                db_shoulder.dev_nums, db_shoulder.broken_nums, db_shoulder.fp_nums, db_shoulder.fn_nums)
-            pass
-        if db_diameter == None:
-            data.diameter = CommonCount(0, 0, 0, 0)
-        else:
-            data.diameter = CommonCount(
-                db_diameter.dev_nums, db_diameter.broken_nums, db_diameter.fp_nums, db_diameter.fn_nums)
-            pass
-
+        db_shoulder = get_one_detection_result(datenow, 1)
+        db_diameter = get_one_detection_result(datenow, 2)
+        data.shoulder = (CommonCount(0, 0, 0, 0) if (db_shoulder == None) else CommonCount(
+            db_shoulder.dev_nums, db_shoulder.broken_nums, db_shoulder.fp_nums, db_shoulder.fn_nums))
+        data.diameter = (CommonCount(0, 0, 0, 0) if (db_diameter == None) else CommonCount(
+            db_diameter.dev_nums, db_diameter.broken_nums, db_diameter.fp_nums, db_diameter.fn_nums))
     except Exception as e:
         res.error(Error.SERVER_EXCEPTION)
         logger.error(e)
         pass
-
     res.data = data
-    session.close()
     return res
 
 
@@ -65,10 +53,9 @@ def total_shoulder_data(res: ResponseBase):
         for i in ['1', '3', '5', '7', '9', '11']:
             item = CommonListItem(i, random.randint(1, 100))
             data.distribution.append(item)
-        for i in ['12-01', '12-03', '12-05', '12-07', '12-09', '12-11', '12-13']:
-            item = CommonListItem(i, random.randint(100, 200))
+        for i in get_history_broken_nums(1, 10):
+            item = CommonListItem(i.date.strftime('%m-%d'), i.broken_nums)
             data.history.append(item)
-
         res.data = data
     except Exception as e:
         res.error(Error.SERVER_EXCEPTION)
@@ -81,13 +68,13 @@ def total_diameter_data(res: ResponseBase):
     try:
         data = RespTotalDiameterData()
         data.succ = 200
-        data.total = 300
+        data.total = 400
         data.rate = round(data.succ/data.total, 4)
         for i in ['1', '3', '5', '7', '9', '11']:
             item = CommonListItem(i, random.randint(1, 100))
             data.distribution.append(item)
-        for i in ['12-01', '12-03', '12-05', '12-07', '12-09', '12-11', '12-13']:
-            item = CommonListItem(i, random.randint(100, 200))
+        for i in get_history_broken_nums(2, 10):
+            item = CommonListItem(i.date.strftime('%m-%d'), i.broken_nums)
             data.history.append(item)
         res.data = data
     except Exception as e:
