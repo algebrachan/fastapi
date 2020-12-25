@@ -12,7 +12,7 @@ db_name = 'demo'
 
 db_connect_string = 'mysql+pymysql://{0}:{1}@{2}:{3}/{4}?charset=utf8'.format(
     db_user, db_pwd, db_host, db_port, db_name)
-engine = create_engine(db_connect_string, echo=True, max_overflow=5)  # 创建引擎
+engine = create_engine(db_connect_string, max_overflow=5)  # 创建引擎 echo=True 打印日志
 db_session = sessionmaker(bind=engine)  # 产生会话
 
 

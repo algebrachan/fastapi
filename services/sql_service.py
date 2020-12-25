@@ -66,7 +66,7 @@ def get_history_broken_nums(type: int, days: int):
         # 10天前的数据
         dt_ago = (datetime.now()-timedelta(days=days)).date()
         data = session.query(DetectionResult).filter(
-            and_(DetectionResult.type == type, DetectionResult.date >= dt_ago)).order_by(desc(DetectionResult.date)).all()
+            and_(DetectionResult.type == type, DetectionResult.date >= dt_ago)).order_by(DetectionResult.date).all()
         pass
     except Exception as e:
         logger.error(e)

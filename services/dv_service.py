@@ -13,6 +13,7 @@ def total_count(res: ResponseBase):
 
     data = RespGetTotalCount()
     try:
+        logger.info('get total')
         # 获取当前的时间字符串
         datenow = datetime.now().date()
         db_shoulder = get_one_detection_result(datenow, 1)

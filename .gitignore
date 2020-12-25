@@ -5,3 +5,4 @@
 .pytest_cache
 # 项目日志文件
 *.log
+*.log.*
