@@ -63,4 +63,4 @@ class Logger(object):
         self.logger.addHandler(th)
 
 
-logger = Logger(path+'server.log', when='D').logger
+logger = Logger(path+'server.log', when='midnight').logger
