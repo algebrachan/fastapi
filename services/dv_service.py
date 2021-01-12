@@ -18,10 +18,10 @@ def total_count(res: ResponseBase):
         datenow = datetime.now().date()
         db_shoulder = get_one_detection_result(datenow, 1)
         db_diameter = get_one_detection_result(datenow, 2)
-        data.shoulder = (CommonCount(0, 0, 0, 0) if (db_shoulder == None) else CommonCount(
-            db_shoulder.dev_nums, db_shoulder.broken_nums, db_shoulder.fp_nums, db_shoulder.fn_nums))
-        data.diameter = (CommonCount(0, 0, 0, 0) if (db_diameter == None) else CommonCount(
-            db_diameter.dev_nums, db_diameter.broken_nums, db_diameter.fp_nums, db_diameter.fn_nums))
+        data.shoulder = (CommonCount(0, 0, 0, 0, datenow) if (db_shoulder == None) else CommonCount(
+            db_shoulder.dev_nums, db_shoulder.broken_nums, db_shoulder.fp_nums, db_shoulder.fn_nums, db_shoulder.date))
+        data.diameter = (CommonCount(0, 0, 0, 0, datenow) if (db_diameter == None) else CommonCount(
+            db_diameter.dev_nums, db_diameter.broken_nums, db_diameter.fp_nums, db_diameter.fn_nums, db_diameter.date))
     except Exception as e:
         res.error(Error.SERVER_EXCEPTION)
         logger.error(e)
@@ -48,13 +48,14 @@ def series_count(res: ResponseBase):
 def total_shoulder_data(res: ResponseBase):
     try:
         data = RespTotalShoulderData()
-        data.succ = 230
-        data.total = 300
+        shoulder = get_one_detection_result(datetime.now().date(), 1)
+        data.succ = shoulder.dev_nums-shoulder.broken_nums
+        data.total = shoulder.dev_nums
         data.rate = round(data.succ/data.total, 4)
         for i in ['1', '3', '5', '7', '9', '11']:
             item = CommonListItem(i, random.randint(1, 100))
             data.distribution.append(item)
-        for i in get_history_broken_nums(1, 10):
+        for i in get_history_broken_nums(1, 30):
             item = CommonListItem(i.date.strftime('%m-%d'), i.broken_nums)
             data.history.append(item)
         res.data = data
@@ -68,13 +69,14 @@ def total_shoulder_data(res: ResponseBase):
 def total_diameter_data(res: ResponseBase):
     try:
         data = RespTotalDiameterData()
-        data.succ = 200
-        data.total = 400
+        diameter = get_one_detection_result(datetime.now().date(), 2)
+        data.succ = diameter.dev_nums-diameter.broken_nums
+        data.total = diameter.dev_nums
         data.rate = round(data.succ/data.total, 4)
         for i in ['1', '3', '5', '7', '9', '11']:
             item = CommonListItem(i, random.randint(1, 100))
             data.distribution.append(item)
-        for i in get_history_broken_nums(2, 10):
+        for i in get_history_broken_nums(2, 30):
             item = CommonListItem(i.date.strftime('%m-%d'), i.broken_nums)
             data.history.append(item)
         res.data = data

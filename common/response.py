@@ -19,12 +19,14 @@ class CommonCount:
     brek: int  # 检出断苞数量
     fail: int  # 误检数量
     miss: int   # 漏检数量
+    date: str    # 日期
 
-    def __init__(self, online, brek, fail, miss):
-        self.online = online 
-        self.brek = brek 
-        self.fail = fail 
-        self.miss = miss 
+    def __init__(self, online, brek, fail, miss, date):
+        self.online = online
+        self.brek = brek
+        self.fail = fail
+        self.miss = miss
+        self.date = date
 
 
 class CommonListItem:

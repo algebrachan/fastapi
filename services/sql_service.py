@@ -46,7 +46,7 @@ def get_one_detection_result(date: str, type: int):
     data = None
     try:
         data = session.query(DetectionResult).filter(
-            and_(DetectionResult.date == date, DetectionResult.type == type)).first()
+            and_(DetectionResult.date <= date, DetectionResult.type == type)).order_by(desc(DetectionResult.date)).first()
         pass
     except Exception as e:
         logger.error(e)
